@@ -1,24 +1,11 @@
-# README
+# Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby & postgresql should be already installed on your computer.
 
-Things you may want to cover:
+Install gems:
 
-* Ruby version
+`bundle`
 
-* System dependencies
+Create DB and fill it with data:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`rails db:setup`

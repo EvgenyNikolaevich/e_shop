@@ -8,4 +8,20 @@ Install gems:
 
 Create DB and fill it with data:
 
-`rails db:setup`
+```
+rails db:create
+rails db:migrate
+rails db:seed
+```
+
+Install redis for Linux:
+
+```
+sudo apt install redis
+```
+
+OR install for MacOs:
+
+```
+brew install redis
+```

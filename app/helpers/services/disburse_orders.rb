@@ -6,7 +6,7 @@ module Services
       new.call(params)
     end
 
-    FEE = 
+    FEES = 
     {
       (0...50) => 1,
       (50...300) => 0.95,
@@ -14,15 +14,15 @@ module Services
     }.freeze
 
     def call(params)
-      valid_params = validate_params(params)
-      orders       = find_completed_orders(valid_params[:start_at], valid_params[:end_at])
+      valid_params  = validate_params(params)
+      orders        = find_completed_orders(valid_params[:start_at], valid_params[:end_at])
 
       calculate_disbursements(orders)
     end
 
     private
 
-    private_constant :FEE
+    private_constant :FEES
 
     def validate_params(params)
       { start_at: params[:start_at], end_at: params[:end_at] }
@@ -36,9 +36,9 @@ module Services
 
     def calculate_disbursements(orders)
       orders.map do |order|
-        FEE.each_pair do |range, fee_size|
+        FEES.each_pair do |range, fee_size|
           if range.include?(order[:amount])
-            order[:disburse_amount] = order[:amount] * fee_size 
+            order[:amount] = order[:amount] * fee_size 
 
             break
           end

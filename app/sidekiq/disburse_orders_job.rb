@@ -7,8 +7,8 @@ class DisburseOrdersJob
     next_run = Time.now.next_week.beginning_of_week
 
     ActiveRecord::Base.transaction do
-      Services::DisburseOrders.call(args)
-      Services::SaveDisbursedOrders.call(args)
+      disbursed_orders = Services::DisburseOrders.call(args)
+      Services::SaveDisbursedOrders.call(disbursed_orders)
     end
   end
 end

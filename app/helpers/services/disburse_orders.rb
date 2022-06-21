@@ -2,11 +2,7 @@
 
 module Services
   # Disburses completed order for given date
-  class DisburseOrders
-    def self.call(params)
-      new.call(params)
-    end
-
+  class DisburseOrders < Base
     FEES =
       {
         (0...50) => 1,

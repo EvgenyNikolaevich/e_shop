@@ -2,11 +2,7 @@
 
 module Services
   # Saves given disbursed orders into DB
-  class SaveDisbursedOrders
-    def self.call(params)
-      new.call(params)
-    end
-
+  class SaveDisbursedOrders < Base
     def call(params)
       valid_params = validate_params(params)
 
@@ -27,7 +23,7 @@ module Services
     end
 
     def save_disbursements(valid_params)
-      Disbursement.insert_all!(valid_params)
+      Disbursement.insert_all(valid_params)
     end
   end
 end

@@ -9,8 +9,10 @@ RSpec.describe Services::DisburseOrders do
     context 'when completed orders exist' do
       let(:merchant) { create(:merchant) }
       let(:shopper)  { create(:shopper) }
-      let!(:orders)  { create_list(:order, 5, completed_at: '2022-06-14'.to_time, merchant_id: merchant.id, shopper_id: shopper.id) }
-      let(:params)   { { start_at: '2022-06-13'.to_time, end_at: '2022-06-19'.to_time } }
+      let!(:orders)  do
+        create_list(:order, 5, completed_at: '2022-06-14'.to_time, merchant_id: merchant.id, shopper_id: shopper.id)
+      end
+      let(:params) { { start_at: '2022-06-13'.to_time, end_at: '2022-06-19'.to_time } }
 
       it { is_expected.to be_an_instance_of(Array) }
       it { expect(subject.size).to eq(5) }

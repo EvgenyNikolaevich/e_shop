@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DisburseOrdersJob, type: :job do
+RSpec.describe DisburseOrdersForWeekJob, type: :job do
   subject { described_class.new.perform(args) }
 
   describe '.perform' do

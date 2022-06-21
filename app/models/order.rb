@@ -3,7 +3,7 @@
 class Order < ApplicationRecord
   belongs_to :merchant
   belongs_to :shopper
-  has_one :disbursement
+  has_one :disbursement, dependent: :restrict_with_exception
 
-  scope :completed, -> { where.not(completed_at: nil )}
+  scope :completed, -> { where.not(completed_at: nil) }
 end

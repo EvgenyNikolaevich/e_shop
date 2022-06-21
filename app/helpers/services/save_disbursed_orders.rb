@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Services
+  # Saves given disbursed orders into DB
   class SaveDisbursedOrders
     def self.call(params)
       new.call(params)
@@ -16,8 +17,8 @@ module Services
 
     def validate_params(params)
       params.map do |param|
-        { 
-          order_id: param[:id], 
+        {
+          order_id: param[:id],
           start_at: param[:start_at],
           end_at: param[:end_at],
           amount: param[:amount]
@@ -26,7 +27,7 @@ module Services
     end
 
     def save_disbursements(valid_params)
-      Disbursement.insert_all(valid_params)
+      Disbursement.insert_all!(valid_params)
     end
   end
 end

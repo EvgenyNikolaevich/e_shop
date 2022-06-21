@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 module Services
+  # Disburses completed order for given date
   class DisburseOrders
     def self.call(params)
       new.call(params)
     end
 
-    FEES = 
-    {
-      (0...50) => 1,
-      (50...300) => 0.95,
-      (300..Float::INFINITY) => 0.85
-    }.freeze
+    FEES =
+      {
+        (0...50) => 1,
+        (50...300) => 0.95,
+        (300..Float::INFINITY) => 0.85
+      }.freeze
 
     def call(params)
       valid_params  = validate_params(params)
@@ -37,11 +38,11 @@ module Services
     def calculate_disbursements(orders)
       orders.map do |order|
         FEES.each_pair do |range, fee_size|
-          if range.include?(order[:amount])
-            order[:amount] = order[:amount] * fee_size 
+          next unless range.include?(order[:amount])
 
-            break
-          end
+          order[:amount] = order[:amount] * fee_size
+
+          break
         end
       end
     end

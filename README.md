@@ -25,3 +25,9 @@ OR install for MacOs:
 ```
 brew install redis
 ```
+
+Run first task through the terminal:
+```
+rails c
+DisburseOrdersForWeekJob.perform_later(Time.now.next_week)
+```

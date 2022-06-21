@@ -1,24 +1,33 @@
-# README
+# Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby & postgresql should be already installed on your computer.
 
-Things you may want to cover:
+Install gems:
 
-* Ruby version
+`bundle`
 
-* System dependencies
+Create DB and fill it with data:
 
-* Configuration
+```
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
-* Database creation
+Install redis for Linux:
 
-* Database initialization
+```
+sudo apt install redis
+```
 
-* How to run the test suite
+OR install for MacOs:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+brew install redis
+```
 
-* Deployment instructions
-
-* ...
+Run first task through the terminal:
+```
+rails c
+DisburseOrdersForWeekJob.perform_later(Time.now.next_week)
+```

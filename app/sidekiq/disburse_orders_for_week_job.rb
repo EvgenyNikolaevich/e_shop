@@ -4,15 +4,16 @@
 class DisburseOrdersForWeekJob < ApplicationJob
   retry_on ActiveRecord::NotNullViolation, wait: 5.minutes, queue: :low_priority
 
-  def perform(*args)
-    next_run = Time.zone.now.next_week.beginning_of_week
-    end_at   = Time.zone.now.next_week.end_of_week
+  def perform(_args)
+    next_run   = Time.zone.now.prev_week
+    end_at     = Time.zone.now.prev_week.end_of_week
+    date_range = { start_at: next_run, end_at: end_at }
 
     ActiveRecord::Base.transaction do
-      disbursed_orders = Services::DisburseOrders.call(args)
+      disbursed_orders = Services::DisburseOrders.call(date_range)
 
       Services::SaveDisbursedOrders.call(disbursed_orders)
-      DisburseOrdersForWeekJob.perform_later(next_run, { start_at: next_run, end_at: end_at })
+      DisburseOrdersForWeekJob.perform_later(next_run, date_range)
     end
   end
 end
